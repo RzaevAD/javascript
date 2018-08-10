@@ -27,7 +27,7 @@ function createDivWithText(text) {
    prepend(document.querySelector('#one'), document.querySelector('#two')) // добавит элемент переданный первым аргументом в начало элемента переданного вторым аргументом
  */
 function prepend(what, where) {
-    return where.insertBefore(what, where.children[0]);
+    where.insertBefore(what, where.firstChild);
 }
 
 /*
@@ -123,12 +123,10 @@ function deleteTextNodes(where) {
    должно быть преобразовано в <span><div><b></b></div><p></p></span>
  */
 function deleteTextNodesRecursive(where) {
+    for (let child of [...where.childNodes]) {
+        if (child.nodeType === 3) {
+            child.parentNode.removeChild(child);
 
-    for (let i=0; i < where.childNodes.length; i++) {
-        let child = where.childNodes[i];
-
-        if (child.nodeName === '#text') {
-            where.removeChild(child);
         } else {
             deleteTextNodesRecursive(child);
         }
