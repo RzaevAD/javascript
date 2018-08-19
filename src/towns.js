@@ -1,3 +1,4 @@
+import { loadAndSortTowns } from './index';
 /*
  Страница должна предварительно загрузить список городов из
  https://raw.githubusercontent.com/smelukov/citiesTest/master/cities.json
@@ -37,6 +38,7 @@ const homeworkContainer = document.querySelector('#homework-container');
  https://raw.githubusercontent.com/smelukov/citiesTest/master/cities.json
  */
 function loadTowns() {
+    return loadAndSortTowns();
 }
 
 /*
@@ -51,6 +53,7 @@ function loadTowns() {
    isMatching('Moscow', 'Moscov') // false
  */
 function isMatching(full, chunk) {
+    return (~full.toLowerCase().indexOf(chunk.toLowerCase())) ? true : false;
 }
 
 /* Блок с надписью "Загрузка" */
