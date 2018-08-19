@@ -65,9 +65,32 @@ const filterInput = homeworkContainer.querySelector('#filter-input');
 /* Блок с результатами поиска */
 const filterResult = homeworkContainer.querySelector('#filter-result');
 
-filterInput.addEventListener('keyup', function() {
+{
+    let towns;
+
+    loadTowns().then(result => {
+        loadingBlock.style.display = 'none';
+        filterBlock.style.display = '';
+        towns = result;
+    });
+
     // это обработчик нажатия кливиш в текстовом поле
-});
+    filterInput.addEventListener('keyup', function() {
+        filterResult.textContent = '';
+
+        let chunk = filterInput.value;
+        let filterTowns = towns.filter(town => isMatching(town.name, chunk));
+
+        if (chunk) {
+            let str = '';
+
+            for (let town of filterTowns) {
+                str += town.name + '<br>';
+            }
+            filterResult.innerHTML = str;
+        }
+    });
+}
 
 export {
     loadTowns,
